@@ -1,3 +1,72 @@
-<div class="default-style">
-  <dx-button [text]="buttonText" (onClick)="onClick($event)"></dx-button>
+<div class="demo-container">
+  <dx-data-grid
+    class="dx-card"
+    [visible]="!isSmallScreen"
+    [dataSource]="dataSource"
+    [remoteOperations]="true"
+    [allowColumnReordering]="true"
+    [(filterValue)]="filterValue"
+    (onOptionChanged)="onOptionChanged($event)"
+    [(selectedRowKeys)]="selectedKeys"
+    [height]="800"
+    [showBorders]="true"
+    [columnAutoWidth]="true"
+  >
+    <dxo-data-grid-paging [(pageSize)]="pageSize" [(pageIndex)]="pageIndex"></dxo-data-grid-paging>
+    <dxo-data-grid-pager [showPageSizeSelector]="true" [showInfo]="true" [allowedPageSizes]="allowedPageSizes"></dxo-data-grid-pager>
+    <dxo-data-grid-selection mode="multiple"></dxo-data-grid-selection>
+    <dxo-data-grid-column-chooser [enabled]="true"></dxo-data-grid-column-chooser>
+    <dxo-data-grid-search-panel [visible]="true" [(text)]="searchPanelText"></dxo-data-grid-search-panel>
+    <dxo-data-grid-header-filter [visible]="true"></dxo-data-grid-header-filter>
+    <dxo-data-grid-filter-panel [visible]="true"></dxo-data-grid-filter-panel>
+    <dxo-data-grid-editing mode="popup" [allowUpdating]="true" [allowAdding]="true" [allowDeleting]="true"></dxo-data-grid-editing>
+
+    @for (column of columns; track $index) {
+      <dxi-data-grid-column
+        [dataField]="columns[$index].dataField"
+        [(sortOrder)]="columns[$index].sortOrder"
+        [(visible)]="columns[$index].visible"
+        [(visibleIndex)]="columns[$index].visibleIndex"
+        [allowEditing]="columns[$index].dataField !== 'OrderID'"
+        [dataType]="columns[$index].dataField === 'OrderDate' ? 'date' : undefined"
+      >
+        <dxo-header-filter *ngIf="column.dataField === 'Freight'" [groupInterval]="100"></dxo-header-filter>
+      </dxi-data-grid-column>
+    }
+  </dx-data-grid>
+
+  <dx-card-view
+    class="dx-card"
+    [visible]="isSmallScreen"
+    [dataSource]="dataSource"
+    [remoteOperations]="true"
+    [allowColumnReordering]="true"
+    [(filterValue)]="filterValue"
+    (onOptionChanged)="onOptionChanged($event)"
+    [(selectedCardKeys)]="selectedKeys"
+    [height]="800"
+    cardsPerRow="auto"
+  >
+    <dxo-card-view-paging [(pageSize)]="pageSize" [(pageIndex)]="pageIndex"></dxo-card-view-paging>
+    <dxo-card-view-pager [showPageSizeSelector]="true" [showInfo]="true" [allowedPageSizes]="allowedPageSizes"></dxo-card-view-pager>
+    <dxo-card-view-selection mode="multiple"></dxo-card-view-selection>
+    <dxo-card-view-column-chooser [enabled]="true"></dxo-card-view-column-chooser>
+    <dxo-card-view-search-panel [visible]="true" [(text)]="searchPanelText"></dxo-card-view-search-panel>
+    <dxo-card-view-header-filter [visible]="true"></dxo-card-view-header-filter>
+    <dxo-card-view-filter-panel [visible]="true"></dxo-card-view-filter-panel>
+    <dxo-card-view-editing [allowUpdating]="true" [allowAdding]="true" [allowDeleting]="true"></dxo-card-view-editing>
+
+    @for (column of columns; track $index) {
+      <dxi-card-view-column
+        [dataField]="columns[$index].dataField"
+        [(sortOrder)]="columns[$index].sortOrder"
+        [(visible)]="columns[$index].visible"
+        [(visibleIndex)]="columns[$index].visibleIndex"
+        [allowEditing]="columns[$index].dataField !== 'OrderID'"
+        [dataType]="columns[$index].dataField === 'OrderDate' ? 'date' : undefined"
+      >
+        <dxo-header-filter *ngIf="column.dataField === 'Freight'" [groupInterval]="100"></dxo-header-filter>
+      </dxi-card-view-column>
+    }
+  </dx-card-view>
 </div>

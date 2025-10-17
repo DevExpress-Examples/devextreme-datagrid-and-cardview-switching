@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { ClickEvent } from 'devextreme/ui/button';
+import { DataSource } from 'devextreme/common/data';
+import * as AspNetData from 'devextreme-aspnet-data-nojquery';
+import { ScreenService } from './screen.service';
 
 @Component({
   selector: 'app-root',
@@ -7,14 +9,54 @@ import { ClickEvent } from 'devextreme/ui/button';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'Angular';
+  dataSource: any;
 
-  counter = 0;
+  isSmallScreen: boolean = false;
 
-  buttonText = 'Click count: 0';
+  columns = [
+    { dataField: 'OrderID', sortOrder: undefined, visible: true, visibleIndex: 0 },
+    { dataField: 'ShipName', sortOrder: undefined, visible: true, visibleIndex: 1 },
+    { dataField: 'ShipCountry', sortOrder: undefined, visible: true, visibleIndex: 2 },
+    { dataField: 'OrderDate', sortOrder: undefined, visible: true, visibleIndex: 3 },
+    { dataField: 'Freight', sortOrder: undefined, visible: true, visibleIndex: 4 },
+  ];
 
-  onClick(e: ClickEvent): void {
-    this.counter++;
-    this.buttonText = `Click count: ${this.counter}`;
+  allowedPageSizes = [5, 10, 20];
+  filterValue = '';
+  selectedKeys = [];
+  pageSize = 10;
+  pageIndex = 0;
+  searchPanelText = '';
+
+  constructor(private screen: ScreenService) {
+    const url = 'https://js.devexpress.com/Demos/NetCore/api/DataGridWebApi';
+    this.dataSource = new DataSource({
+      store: AspNetData.createStore({
+        key: 'OrderID',
+        loadUrl: `${url}/Orders`,
+        insertUrl: `${url}/InsertOrder`,
+        updateUrl: `${url}/UpdateOrder`,
+        deleteUrl: `${url}/DeleteOrder`,
+        onBeforeSend(method: string, ajaxOptions: any) {
+          ajaxOptions.xhrFields = { withCredentials: true };
+        },
+      })
+    });
+  }
+
+  ngOnInit() {
+    this.screen.changed.subscribe(() => this.updateComponent());
+
+    this.updateComponent();
+  }
+
+  updateComponent() {
+    this.isSmallScreen = this.screen.sizes['screen-small'];
+  }
+
+  onOptionChanged(e: any) {
+    if (e.fullName === 'visible' && e.value === false) {
+      e.component.hideColumnChooser();
+    }
   }
 }
