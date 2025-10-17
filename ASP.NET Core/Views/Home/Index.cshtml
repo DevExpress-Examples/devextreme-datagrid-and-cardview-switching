@@ -1,29 +1,106 @@
 @using ASP_NET_Core.Models
 
-<h2>Home</h2>
-
 @(Html.DevExtreme().DataGrid<SampleOrder>()
-    .ShowBorders(true)
-    .DataSource(d => d.Mvc().Controller("SampleData").LoadAction("Get").Key("OrderID"))
-    .Columns(columns => {
-        columns.AddFor(m => m.OrderID);
-        columns.AddFor(m => m.OrderDate);
-        columns.AddFor(m => m.CustomerName);
-        columns.AddFor(m => m.ShipCountry);
-        columns.AddFor(m => m.ShipCity);
-    })
-    .Paging(p => p.PageSize(10))
-    .FilterRow(f => f.Visible(true))
-    .HeaderFilter(f => f.Visible(true))
-    .GroupPanel(p => p.Visible(true))
-    .Grouping(g => g.AutoExpandAll(false))
+    .ID("dataGrid")
+    .ElementAttr(new { @class = "dx-card" })
+    .DataSource(new JS("sharedDataSource"))
     .RemoteOperations(true)
-    .Summary(s => s
-        .TotalItems(totalItems => {
-            totalItems.AddFor(m => m.ShipCity).SummaryType(SummaryType.Count);
-        })
-        .GroupItems(groupItems => {
-            groupItems.Add().SummaryType(SummaryType.Count);
-        })
+    .AllowColumnReordering(true)
+    .Pager(pager => pager
+        .ShowPageSizeSelector(true)
+        .ShowInfo(true)
+        .AllowedPageSizes(new JS("[5, 10, 20]"))
     )
+    .Paging(paging => paging.PageSize(10))
+    .Selection(selection => selection.Mode(SelectionMode.Multiple))
+    .ColumnChooser(columnChooser => columnChooser.Enabled(true))
+    .SearchPanel(searchPanel => searchPanel.Visible(true))
+    .HeaderFilter(headerFilter => headerFilter.Visible(true))
+    .FilterPanel(filterPanel => filterPanel.Visible(true))
+    .Editing(editing => editing
+        .Mode(GridEditMode.Popup)
+        .AllowUpdating(true)
+        .AllowAdding(true)
+        .AllowDeleting(true)
+    )
+    .Columns(columns =>
+    {
+        columns.AddFor(m => m.OrderID).AllowEditing(false);
+        columns.AddFor(m => m.ShipName);
+        columns.AddFor(m => m.ShipCountry);
+        columns.AddFor(m => m.OrderDate).DataType(GridColumnDataType.Date);
+        columns.AddFor(m => m.Freight).HeaderFilter(headerFilter => headerFilter.GroupInterval(100));
+    })
+    .Height(800)
+    .Visible(true)
+    .ShowBorders(true)
+    .ColumnAutoWidth(true)
 )
+
+@(Html.DevExtreme().CardView<SampleOrder>()
+    .ID("cardView")
+    .ElementAttr(new { @class = "dx-card" })
+    .DataSource(new JS("sharedDataSource"))
+    .RemoteOperations(true)
+    .AllowColumnReordering(true)
+    .Pager(pager => pager
+        .ShowPageSizeSelector(true)
+        .ShowInfo(true)
+        .AllowedPageSizes(new JS("[5, 10, 20]"))
+    )
+    .Paging(paging => paging.PageSize(10))
+    .Selection(selection => selection.Mode(SingleMultipleOrNone.Multiple))
+    .ColumnChooser(columnChooser => columnChooser.Enabled(true))
+    .SearchPanel(searchPanel => searchPanel.Visible(true))
+    .HeaderFilter(headerFilter => headerFilter.Visible(true))
+    .FilterPanel(filterPanel => filterPanel.Visible(true))
+    .Editing(editing => editing
+        .AllowUpdating(true)
+        .AllowAdding(true)
+        .AllowDeleting(true)
+    )
+    .Columns(columns =>
+    {
+        columns.AddFor(m => m.OrderID).AllowEditing(false);
+        columns.AddFor(m => m.ShipName);
+        columns.AddFor(m => m.ShipCountry);
+        columns.AddFor(m => m.OrderDate).DataType(GridColumnDataType.Date);
+        columns.AddFor(m => m.Freight).HeaderFilter(headerFilter => headerFilter.GroupInterval(100));
+    })
+    .Height(800)
+    .Visible(false)
+    .CardsPerRow(Mode.Auto)
+)
+
+<script>
+    const sharedDataSource = new DevExpress.data.DataSource({
+        store: DevExpress.data.AspNet.createStore({
+            key: 'OrderID',
+            loadUrl: '@Url.Action("Get", "SampleData")',
+            insertUrl: '@Url.Action("Post", "SampleData")',
+            updateUrl: '@Url.Action("Put", "SampleData")',
+            deleteUrl: '@Url.Action("Delete", "SampleData")',
+            onBeforeSend(method, ajaxOptions) {
+                ajaxOptions.xhrFields = { withCredentials: true };
+            },
+        }),
+    });
+
+    $(() => {
+        const dataGrid = $('#dataGrid').dxDataGrid('instance');
+        const cardView = $('#cardView').dxCardView('instance');
+
+        new SyncHelper(dataGrid, cardView);
+
+        $(window).on('resize', () => {
+            const isScreenSmall = $(window).width() < 960;
+            if (isScreenSmall) {
+                dataGrid.option('visible', false);
+                cardView.option('visible', true);
+            } else {
+                cardView.option('visible', false);
+                dataGrid.option('visible', true);
+            }
+        });
+    })
+</script>
