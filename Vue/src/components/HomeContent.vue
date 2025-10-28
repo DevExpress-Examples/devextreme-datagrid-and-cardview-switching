@@ -15,15 +15,17 @@ const props = defineProps({
 
 const url = 'https://js.devexpress.com/Demos/NetCore/api/DataGridWebApi';
 
-const dataSource = createStore({
-  key: 'OrderID',
-  loadUrl: `${url}/Orders`,
-  insertUrl: `${url}/InsertOrder`,
-  updateUrl: `${url}/UpdateOrder`,
-  deleteUrl: `${url}/DeleteOrder`,
-  onBeforeSend: (method, ajaxOptions) => {
-    ajaxOptions.xhrFields = { withCredentials: true };
-  },
+const dataSource = new DataSource({
+  store: createStore({
+    key: 'OrderID',
+    loadUrl: `${url}/Orders`,
+    insertUrl: `${url}/InsertOrder`,
+    updateUrl: `${url}/UpdateOrder`,
+    deleteUrl: `${url}/DeleteOrder`,
+    onBeforeSend: (_, ajaxOptions) => {
+      ajaxOptions.xhrFields = { withCredentials: true };
+    },
+  })
 });
 
 const allowedPageSizes = [5, 10, 20];
