@@ -161,7 +161,7 @@ const columns = ref([
 .dx-card {
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 20px rgb(0 0 0 / 10%);
 }
 
 :deep(.dx-cardview-card:not(.dx-cardview-card-selection) .dx-cardview-card-header .dx-icon) {
