@@ -3,17 +3,16 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { DxDataGridModule } from 'devextreme-angular/ui/data-grid';
 import { DxCardViewModule } from 'devextreme-angular';
+import { of } from 'rxjs';
 import { AppComponent } from './app.component';
 import { ScreenService } from './screen.service';
-import { of } from 'rxjs';
 
 describe('AppComponent', () => {
-  let mockBreakpointObserver: jasmine.SpyObj<BreakpointObserver>;
+  let mockBreakpointObserver: jasmine.SpyObj<BreakpointObserver> = jasmine.createSpyObj('BreakpointObserver', ['observe', 'isMatched']);
 
   beforeEach(async () => {
-    const breakpointObserverSpy = jasmine.createSpyObj('BreakpointObserver', ['observe', 'isMatched']);
-    breakpointObserverSpy.observe.and.returnValue(of({ matches: false, breakpoints: {} }));
-    breakpointObserverSpy.isMatched.and.returnValue(false);
+    mockBreakpointObserver.observe.and.returnValue(of({ matches: false, breakpoints: {} }));
+    mockBreakpointObserver.isMatched.and.returnValue(false);
 
     await TestBed.configureTestingModule({
       imports: [
@@ -26,11 +25,9 @@ describe('AppComponent', () => {
       ],
       providers: [
         ScreenService,
-        { provide: BreakpointObserver, useValue: breakpointObserverSpy }
+        { provide: BreakpointObserver, useValue: mockBreakpointObserver },
       ],
     }).compileComponents();
-
-    mockBreakpointObserver = TestBed.inject(BreakpointObserver) as jasmine.SpyObj<BreakpointObserver>;
   });
 
   it('should create the app', () => {
