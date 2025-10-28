@@ -23,7 +23,7 @@ class SyncHelper {
                     cardView.clearSorting();
                 }
 
-                if (['visible', 'visibleIndex', 'sortOrder'].some(option => e.fullName.includes(option))) {
+                if (['visible', 'visibleIndex', 'sortOrder'].some((option) => e.fullName.includes(option))) {
                     cardView.option(e.fullName, e.value);
                 }
             }
@@ -47,7 +47,7 @@ class SyncHelper {
             }
 
             // Filtering functionality (filter panel and header filter)
-            if (['filterValue', 'filterValues', 'filterType'].some(option => e.fullName.includes(option))) {
+            if (['filterValue', 'filterValues', 'filterType'].some((option) => e.fullName.includes(option))) {
                 cardView.option(e.fullName, e.value);
             }
 
@@ -75,7 +75,7 @@ class SyncHelper {
                     dataGrid.clearSorting();
                 }
 
-                if (['visible', 'visibleIndex', 'sortOrder'].some(option => e.fullName.includes(option))) {
+                if (['visible', 'visibleIndex', 'sortOrder'].some((option) => e.fullName.includes(option))) {
                     dataGrid.option(e.fullName, e.value);
                 }
             }
@@ -99,7 +99,7 @@ class SyncHelper {
             }
 
             // Filtering functionality (filter panel and header filter)
-            if (['filterValue', 'filterValues', 'filterType'].some(option => e.fullName.includes(option))) {
+            if (['filterValue', 'filterValues', 'filterType'].some((option) => e.fullName.includes(option))) {
                 dataGrid.option(e.fullName, e.value);
             }
 

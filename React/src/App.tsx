@@ -1,7 +1,7 @@
 import 'devextreme/dist/css/dx.material.blue.light.compact.css';
 import './App.css';
 
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import DataGrid, {
   Pager as GridPager,
   Paging as GridPaging,
@@ -25,12 +25,12 @@ import CardView, {
   Column as CardColumn,
 } from 'devextreme-react/card-view';
 import { createStore } from 'devextreme-aspnet-data-nojquery';
-import { useScreenSize } from './media-query';
 import { DataSource } from 'devextreme/common/data';
+import { useScreenSize } from './media-query';
 
 interface ColumnOptions {
   [key: string]: any;
-};
+}
 
 const url = 'https://js.devexpress.com/Demos/NetCore/api/DataGridWebApi';
 
@@ -61,7 +61,9 @@ function App(): JSX.Element {
   const [columnVisibilities, setColumnVisibilities] = useState<ColumnOptions>({});
   const [columnVisibleIndexes, setColumnVisibleIndexes] = useState<ColumnOptions>({});
 
-  const onOptionChanged = useCallback(({ name, fullName, value, component }: any) => {
+  const onOptionChanged = useCallback(({
+    name, fullName, value, component,
+  }: any) => {
     if (name === 'columns') {
       const match = /\[(\d+)\]/.exec(fullName);
       const colIdx = match ? parseInt(match[1], 10) : null;
@@ -90,7 +92,7 @@ function App(): JSX.Element {
     const Editing = isGrid ? GridEditing : CardEditing;
     const Column = isGrid ? GridColumn : CardColumn;
 
-    return (<>
+    return (<React.Fragment>
       <Paging pageSize={pageSize} onPageSizeChange={setPageSize} pageIndex={pageIndex} onPageIndexChange={setPageIndex} />
       <Pager showPageSizeSelector={true} showInfo={true} allowedPageSizes={allowedPageSizes} />
       <Selection mode="multiple" />
@@ -139,7 +141,7 @@ function App(): JSX.Element {
       >
         <HeaderFilter groupInterval={100} />
       </Column>
-    </>);
+    </React.Fragment>);
   }, [pageSize, pageIndex, searchPanelText, columnSortOrders, columnVisibilities, columnVisibleIndexes]);
 
   return (
@@ -174,7 +176,7 @@ function App(): JSX.Element {
         onFilterValueChange={setFilterValue}
         selectedCardKeys={selectedKeys}
         onSelectedCardKeysChange={setSelectedKeys}
-        cardsPerRow={'auto'}
+        cardsPerRow='auto'
       >
         <CommonSettings isGrid={false} />
       </CardView>

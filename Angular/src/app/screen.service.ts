@@ -5,13 +5,13 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 export class ScreenService {
   @Output() changed = new EventEmitter();
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(private readonly breakpointObserver: BreakpointObserver) {
     this.breakpointObserver
       .observe([Breakpoints.XSmall, Breakpoints.Small])
       .subscribe(() => this.changed.next(true));
   }
 
-  private isSmallScreen() {
+  private isSmallScreen(): boolean {
     const isSmall = this.breakpointObserver.isMatched(Breakpoints.Small);
     const isXSmall = this.breakpointObserver.isMatched(Breakpoints.XSmall);
 

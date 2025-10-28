@@ -7,7 +7,7 @@ function getScreenSizeInfo() {
   const screenSizes = sizes();
 
   return {
-    isSmall: screenSizes["screen-small"] || screenSizes["screen-x-small"],
+    isSmall: screenSizes['screen-small'] || screenSizes['screen-x-small'],
   };
 }
 
@@ -27,6 +27,6 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <HomeContent :is-screen-small="screen.size.isSmall" />
+  <HomeContent :is-screen-small="screen.size.isSmall"/>
 </template>
 

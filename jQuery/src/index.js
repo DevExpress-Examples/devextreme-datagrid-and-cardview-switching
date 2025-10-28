@@ -47,7 +47,7 @@ $(() => {
       allowDeleting: true,
     },
     columns: [
-      { dataField: 'OrderID', allowEditing: false, },
+      { dataField: 'OrderID', allowEditing: false },
       { dataField: 'ShipName' },
       { dataField: 'ShipCountry' },
       { dataField: 'OrderDate', dataType: 'date' },
@@ -70,8 +70,8 @@ $(() => {
     visible: isScreenSmall,
     cardsPerRow: 'auto',
   }).dxCardView('instance');
-  
-  new SyncHelper(dataGrid, cardView);
+
+  const helper = new SyncHelper(dataGrid, cardView);
 
   $(window).on('resize', () => {
     isScreenSmall = $(window).width() < 960;

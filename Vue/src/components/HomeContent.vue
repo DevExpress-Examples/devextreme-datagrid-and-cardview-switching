@@ -5,8 +5,9 @@ import 'devextreme/dist/css/dx.material.blue.light.compact.css';
 import DxDataGrid, { DxPager, DxPaging, DxSelection, DxColumnChooser, DxSearchPanel, DxHeaderFilter, DxFilterPanel, DxEditing, DxColumn } from 'devextreme-vue/data-grid';
 import DxCardView from 'devextreme-vue/card-view';
 import { createStore } from 'devextreme-aspnet-data-nojquery';
+import { DataSource } from 'devextreme/common/data';
 
-const props = defineProps({
+defineProps({
   isScreenSmall: {
     type: Boolean,
     default: false,
@@ -57,16 +58,33 @@ const columns = ref([
       :show-borders="true"
       :column-auto-width="true"
     >
-      <DxPaging v-model:page-size="pageSize" v-model:page-index="pageIndex" />
-      <DxPager :show-page-size-selector="true" :show-info="true" :allowed-page-sizes="allowedPageSizes" />
-      <DxSelection mode="multiple" />
-      <DxColumnChooser :enabled="true" />
-      <DxSearchPanel :visible="true" v-model:text="searchPanelText" />
-      <DxHeaderFilter :visible="true" />
-      <DxFilterPanel :visible="true" />
-      <DxEditing mode="popup" :allow-updating="true" :allow-adding="true" :allow-deleting="true" />
+      <DxPaging
+        v-model:page-size="pageSize"
+        v-model:page-index="pageIndex"
+      />
+      <DxPager
+        :show-page-size-selector="true"
+        :show-info="true"
+        :allowed-page-sizes="allowedPageSizes"
+      />
+      <DxSelection mode="multiple"/>
+      <DxColumnChooser :enabled="true"/>
+      <DxSearchPanel
+        :visible="true"
+        v-model:text="searchPanelText"
+      />
+      <DxHeaderFilter :visible="true"/>
+      <DxFilterPanel :visible="true"/>
+      <DxEditing
+        mode="popup"
+        :allow-updating="true"
+        :allow-adding="true"
+        :allow-deleting="true"
+      />
 
-      <DxColumn v-for="(column, index) in columns" :key="index"
+      <DxColumn
+        v-for="(column, index) in columns"
+        :key="index"
         :data-field="column.dataField"
         v-model:sort-order="columns[index].sortOrder"
         v-model:visible="columns[index].visible"
@@ -74,7 +92,10 @@ const columns = ref([
         :allow-editing="column.dataField !== 'OrderID'"
         :data-type="column.dataField === 'OrderDate' ? 'date' : undefined"
       >
-        <DxHeaderFilter v-if="column.dataField === 'Freight'" :group-interval="100"/>
+        <DxHeaderFilter
+          v-if="column.dataField === 'Freight'"
+          :group-interval="100"
+        />
       </DxColumn>
     </DxDataGrid>
     <DxCardView
@@ -88,16 +109,33 @@ const columns = ref([
       :height="800"
       cards-per-row="auto"
     >
-      <DxPaging v-model:page-size="pageSize" v-model:page-index="pageIndex" />
-      <DxPager :show-page-size-selector="true" :show-info="true" :allowed-page-sizes="allowedPageSizes" />
-      <DxSelection mode="multiple" />
-      <DxColumnChooser :enabled="true" />
-      <DxSearchPanel :visible="true" v-model:text="searchPanelText" />
-      <DxHeaderFilter :visible="true" />
-      <DxFilterPanel :visible="true" />
-      <DxEditing mode="popup" :allow-updating="true" :allow-adding="true" :allow-deleting="true" />
+      <DxPaging
+        v-model:page-size="pageSize"
+        v-model:page-index="pageIndex"
+      />
+      <DxPager
+        :show-page-size-selector="true"
+        :show-info="true"
+        :allowed-page-sizes="allowedPageSizes"
+      />
+      <DxSelection mode="multiple"/>
+      <DxColumnChooser :enabled="true"/>
+      <DxSearchPanel
+        :visible="true"
+        v-model:text="searchPanelText"
+      />
+      <DxHeaderFilter :visible="true"/>
+      <DxFilterPanel :visible="true"/>
+      <DxEditing
+        mode="popup"
+        :allow-updating="true"
+        :allow-adding="true"
+        :allow-deleting="true"
+      />
 
-      <DxColumn v-for="(column, index) in columns" :key="index"
+      <DxColumn
+        v-for="(column, index) in columns"
+        :key="index"
         :data-field="column.dataField"
         v-model:sort-order="columns[index].sortOrder"
         v-model:visible="columns[index].visible"
@@ -105,7 +143,10 @@ const columns = ref([
         :allow-editing="column.dataField !== 'OrderID'"
         :data-type="column.dataField === 'OrderDate' ? 'date' : undefined"
       >
-        <DxHeaderFilter v-if="column.dataField === 'Freight'" :group-interval="100"/>
+        <DxHeaderFilter
+          v-if="column.dataField === 'Freight'"
+          :group-interval="100"
+        />
       </DxColumn>
     </DxCardView>
   </div>
