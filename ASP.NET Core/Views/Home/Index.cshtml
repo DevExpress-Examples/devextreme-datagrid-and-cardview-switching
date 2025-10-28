@@ -32,7 +32,7 @@
         columns.AddFor(m => m.Freight).HeaderFilter(headerFilter => headerFilter.GroupInterval(100));
     })
     .Height(800)
-    .Visible(true)
+    .Visible(new JS("!isScreenSmall"))
     .ShowBorders(true)
     .ColumnAutoWidth(true)
 )
@@ -68,7 +68,7 @@
         columns.AddFor(m => m.Freight).HeaderFilter(headerFilter => headerFilter.GroupInterval(100));
     })
     .Height(800)
-    .Visible(false)
+    .Visible(new JS("isScreenSmall"))
     .CardsPerRow(Mode.Auto)
 )
 
@@ -86,6 +86,8 @@
         }),
     });
 
+    let isScreenSmall = $(window).width() < 960;
+
     $(() => {
         const dataGrid = $('#dataGrid').dxDataGrid('instance');
         const cardView = $('#cardView').dxCardView('instance');
@@ -93,7 +95,7 @@
         new SyncHelper(dataGrid, cardView);
 
         $(window).on('resize', () => {
-            const isScreenSmall = $(window).width() < 960;
+            isScreenSmall = $(window).width() < 960;
             if (isScreenSmall) {
                 dataGrid.option('visible', false);
                 cardView.option('visible', true);

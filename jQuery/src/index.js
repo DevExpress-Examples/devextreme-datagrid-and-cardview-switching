@@ -56,23 +56,25 @@ $(() => {
     height: 800,
   };
 
+  let isScreenSmall = $(window).width() < 960;
+
   const dataGrid = $('#dataGrid').dxDataGrid({
     ...commonConfig,
-    visible: true,
+    visible: !isScreenSmall,
     showBorders: true,
     columnAutoWidth: true,
   }).dxDataGrid('instance');
 
   const cardView = $('#cardView').dxCardView({
     ...commonConfig,
-    visible: false,
+    visible: isScreenSmall,
     cardsPerRow: 'auto',
   }).dxCardView('instance');
   
   new SyncHelper(dataGrid, cardView);
 
   $(window).on('resize', () => {
-    const isScreenSmall = $(window).width() < 960;
+    isScreenSmall = $(window).width() < 960;
     if (isScreenSmall) {
       dataGrid.option('visible', false);
       cardView.option('visible', true);
