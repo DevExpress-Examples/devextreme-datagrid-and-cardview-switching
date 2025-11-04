@@ -4,19 +4,19 @@
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 [![](https://img.shields.io/badge/💬_Leave_Feedback-feecdd?style=flat-square)](#does-this-example-address-your-development-requirementsobjectives)
 <!-- default badges end -->
-# DevExtreme Examples Template
+# DataGrid and CardView for DevExtreme - How to switch between grid and card views
 
-This is the repository template for creating new examples. 
+This example demonstrates how to switch between DataGrid and CardView based on the screen size.
 
-![Example image](images/image-template.png)
+![Switch between DataGrid and CardView](images/showcase.gif)
 
-Use **DevExtreme _Product_ - _Task_** template for a title. 
-
-Describe the solved task in this section.
-
-Put a screenshot/gif that illustrates the result here.
-
-Then, add implementation details (steps, code snippets, and other technical information in a free form), or add a link to an existing document with implementation details. 
+## Implementation Details
+- Toggle the [DataGrid.visible](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/#visible) or [CardView.visible](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxCardView/Configuration/#visible) property to switch between the grid and the cardview.
+- To synchronize data, assign the same [DataSource](https://js.devexpress.com/Documentation/ApiReference/Data_Layer/DataSource/) instance to both components.
+- To synchronize states, such as selection, filter, paging, etc., use the following APIs:
+    - In `jQuery` and `ASP.NET`, use [onOptionChanged](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/#onOptionChanged) to track changes in the required properties. Then, use the [option](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Methods/#optionoptionName_optionValue) method to apply the same changes to the other component.
+    - In `Angular` and `Vue`, use [Two-Way Property Binding](https://js.devexpress.com/Documentation/Guide/Angular_Components/Component_Configuration_Syntax/#Two-Way_Property_Binding).
+    - In `React`, use [Controlled Mode](https://js.devexpress.com/React/Documentation/Guide/React_Components/State_Management/#Controlled_Mode).
 
 ## Files to Review
 
@@ -26,25 +26,20 @@ Then, add implementation details (steps, code snippets, and other technical info
 - **React**
     - [App.tsx](React/src/App.tsx)
 - **Vue**
-    - [App.vue](Vue/src/App.vue)
-    - [Home.vue](Vue/src/components/HomeContent.vue)
+    - [HomeContent.vue](Vue/src/components/HomeContent.vue)
 - **jQuery**
     - [index.html](jQuery/src/index.html)
     - [index.js](jQuery/src/index.js)
+    - [SyncHelper.js](jQuery/src/SyncHelper.js)
 - **ASP.NET Core**    
     - [Index.cshtml](ASP.NET%20Core/Views/Home/Index.cshtml)
+    - [SyncHelper.js](ASP.NET%20Core/wwwroot/js/SyncHelper.js)
 
 ## Documentation
 
-- link
-- link
-- ...
+- [Getting Started with DataGrid](https://js.devexpress.com/Documentation/Guide/UI_Components/DataGrid/Getting_Started_with_DataGrid/)
+- [Getting Started with CardView](https://js.devexpress.com/jQuery/Documentation/Guide/UI_Components/CardView/Getting_Started_with_CardView/)
 
-## More Examples
-
-- link
-- link
-- ...
 <!-- feedback -->
 ## Does this example address your development requirements/objectives?
 
