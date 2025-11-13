@@ -55,7 +55,7 @@ function App(): JSX.Element {
   const [selectedKeys, setSelectedKeys] = useState<number[]>([]);
   const [searchPanelText, setSearchPanelText] = useState('');
   const [columnSortOrders, setColumnSortOrders] = useState<ColumnOptions>({});
-  const [columnVisibilities, setColumnVisibilities] = useState<ColumnOptions>({});
+  const [columnVisibileStates, setColumnVisibileStates] = useState<ColumnOptions>({});
   const [columnVisibleIndexes, setColumnVisibleIndexes] = useState<ColumnOptions>({});
 
   const onOptionChanged = useCallback(({
@@ -73,7 +73,7 @@ function App(): JSX.Element {
       } else if (fullName.includes('visibleIndex')) {
         setColumnVisibleIndexes((prev) => ({ ...prev, [dataField]: value }));
       } else if (fullName.includes('visible')) {
-        setColumnVisibilities((prev) => ({ ...prev, [dataField]: value }));
+        setColumnVisibileStates((prev) => ({ ...prev, [dataField]: value }));
       }
     }
   }, []);
@@ -108,38 +108,38 @@ function App(): JSX.Element {
         dataField="OrderID"
         allowEditing={false}
         sortOrder={columnSortOrders.OrderID}
-        visible={columnVisibilities.OrderID !== false}
+        visible={columnVisibileStates.OrderID !== false}
         visibleIndex={columnVisibleIndexes.OrderID}
       />
       <Column
         dataField="ShipName"
         sortOrder={columnSortOrders.ShipName}
-        visible={columnVisibilities.ShipName !== false}
+        visible={columnVisibileStates.ShipName !== false}
         visibleIndex={columnVisibleIndexes.ShipName}
       />
       <Column
         dataField="ShipCountry"
         sortOrder={columnSortOrders.ShipCountry}
-        visible={columnVisibilities.ShipCountry !== false}
+        visible={columnVisibileStates.ShipCountry !== false}
         visibleIndex={columnVisibleIndexes.ShipCountry}
       />
       <Column
         dataField="OrderDate"
         dataType="date"
         sortOrder={columnSortOrders.OrderDate}
-        visible={columnVisibilities.OrderDate !== false}
+        visible={columnVisibileStates.OrderDate !== false}
         visibleIndex={columnVisibleIndexes.OrderDate}
       />
       <Column
         dataField="Freight"
         sortOrder={columnSortOrders.Freight}
-        visible={columnVisibilities.Freight !== false}
+        visible={columnVisibileStates.Freight !== false}
         visibleIndex={columnVisibleIndexes.Freight}
       >
         <HeaderFilter groupInterval={100} />
       </Column>
     </React.Fragment>);
-  }, [pageSize, pageIndex, searchPanelText, columnSortOrders, columnVisibilities, columnVisibleIndexes]);
+  }, [pageSize, pageIndex, searchPanelText, columnSortOrders, columnVisibileStates, columnVisibleIndexes]);
 
   return (
     <div className="demo-container">
