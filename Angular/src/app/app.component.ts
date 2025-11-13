@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { DataSource } from 'devextreme/common/data';
 import * as AspNetData from 'devextreme-aspnet-data-nojquery';
 import { ScreenService } from './screen.service';
 
@@ -9,7 +8,7 @@ import { ScreenService } from './screen.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  dataSource: any;
+  store: AspNetData.CustomStore;
 
   isSmallScreen = false;
 
@@ -54,17 +53,15 @@ export class AppComponent {
 
   constructor(private readonly screen: ScreenService) {
     const url = 'https://js.devexpress.com/Demos/NetCore/api/DataGridWebApi';
-    this.dataSource = new DataSource({
-      store: AspNetData.createStore({
-        key: 'OrderID',
-        loadUrl: `${url}/Orders`,
-        insertUrl: `${url}/InsertOrder`,
-        updateUrl: `${url}/UpdateOrder`,
-        deleteUrl: `${url}/DeleteOrder`,
-        onBeforeSend(method: string, ajaxOptions: any) {
-          ajaxOptions.xhrFields = { withCredentials: true };
-        },
-      }),
+    this.store = AspNetData.createStore({
+      key: 'OrderID',
+      loadUrl: `${url}/Orders`,
+      insertUrl: `${url}/InsertOrder`,
+      updateUrl: `${url}/UpdateOrder`,
+      deleteUrl: `${url}/DeleteOrder`,
+      onBeforeSend(method: string, ajaxOptions: any) {
+        ajaxOptions.xhrFields = { withCredentials: true };
+      },
     });
   }
 

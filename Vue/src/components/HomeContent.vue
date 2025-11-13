@@ -5,7 +5,6 @@ import 'devextreme/dist/css/dx.material.blue.light.compact.css';
 import DxDataGrid, { DxPager, DxPaging, DxSelection, DxColumnChooser, DxSearchPanel, DxHeaderFilter, DxFilterPanel, DxEditing, DxColumn } from 'devextreme-vue/data-grid';
 import DxCardView from 'devextreme-vue/card-view';
 import { createStore } from 'devextreme-aspnet-data-nojquery';
-import { DataSource } from 'devextreme/common/data';
 
 defineProps({
   isScreenSmall: {
@@ -16,17 +15,15 @@ defineProps({
 
 const url = 'https://js.devexpress.com/Demos/NetCore/api/DataGridWebApi';
 
-const dataSource = new DataSource({
-  store: createStore({
-    key: 'OrderID',
-    loadUrl: `${url}/Orders`,
-    insertUrl: `${url}/InsertOrder`,
-    updateUrl: `${url}/UpdateOrder`,
-    deleteUrl: `${url}/DeleteOrder`,
-    onBeforeSend: (_, ajaxOptions) => {
-      ajaxOptions.xhrFields = { withCredentials: true };
-    },
-  })
+const store = createStore({
+  key: 'OrderID',
+  loadUrl: `${url}/Orders`,
+  insertUrl: `${url}/InsertOrder`,
+  updateUrl: `${url}/UpdateOrder`,
+  deleteUrl: `${url}/DeleteOrder`,
+  onBeforeSend: (_, ajaxOptions) => {
+    ajaxOptions.xhrFields = { withCredentials: true };
+  },
 });
 
 const allowedPageSizes = [5, 10, 20];
@@ -49,7 +46,7 @@ const columns = ref([
     <DxDataGrid
       class="dx-card"
       :visible="!isScreenSmall"
-      :data-source="dataSource"
+      :data-source="store"
       :remote-operations="true"
       :allow-column-reordering="true"
       v-model:filter-value="filterValue"
@@ -101,7 +98,7 @@ const columns = ref([
     <DxCardView
       class="dx-card"
       :visible="isScreenSmall"
-      :data-source="dataSource"
+      :data-source="store"
       :remote-operations="true"
       :allow-column-reordering="true"
       v-model:filter-value="filterValue"

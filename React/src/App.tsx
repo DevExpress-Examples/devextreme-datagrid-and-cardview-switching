@@ -25,7 +25,6 @@ import CardView, {
   Column as CardColumn,
 } from 'devextreme-react/card-view';
 import { createStore } from 'devextreme-aspnet-data-nojquery';
-import { DataSource } from 'devextreme/common/data';
 import { useScreenSize } from './media-query';
 
 interface ColumnOptions {
@@ -34,17 +33,15 @@ interface ColumnOptions {
 
 const url = 'https://js.devexpress.com/Demos/NetCore/api/DataGridWebApi';
 
-const dataSource = new DataSource({
-  store: createStore({
-    key: 'OrderID',
-    loadUrl: `${url}/Orders`,
-    insertUrl: `${url}/InsertOrder`,
-    updateUrl: `${url}/UpdateOrder`,
-    deleteUrl: `${url}/DeleteOrder`,
-    onBeforeSend: (_, ajaxOptions) => {
-      ajaxOptions.xhrFields = { withCredentials: true };
-    },
-  }),
+const store = createStore({
+  key: 'OrderID',
+  loadUrl: `${url}/Orders`,
+  insertUrl: `${url}/InsertOrder`,
+  updateUrl: `${url}/UpdateOrder`,
+  deleteUrl: `${url}/DeleteOrder`,
+  onBeforeSend: (_, ajaxOptions) => {
+    ajaxOptions.xhrFields = { withCredentials: true };
+  },
 });
 
 const allowedPageSizes = [5, 10, 20];
@@ -149,7 +146,7 @@ function App(): JSX.Element {
       <DataGrid
         className='dx-card'
         visible={!isScreenSmall}
-        dataSource={dataSource}
+        dataSource={store}
         remoteOperations={true}
         allowColumnReordering={true}
         height={800}
@@ -167,7 +164,7 @@ function App(): JSX.Element {
       <CardView
         className='dx-card'
         visible={isScreenSmall}
-        dataSource={dataSource}
+        dataSource={store}
         remoteOperations={true}
         allowColumnReordering={true}
         height={800}

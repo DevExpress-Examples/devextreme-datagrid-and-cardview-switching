@@ -3,7 +3,7 @@
 @(Html.DevExtreme().DataGrid<SampleOrder>()
     .ID("dataGrid")
     .ElementAttr(new { @class = "dx-card" })
-    .DataSource(new JS("sharedDataSource"))
+    .DataSource(new JS("store"))
     .RemoteOperations(true)
     .AllowColumnReordering(true)
     .Pager(pager => pager
@@ -40,7 +40,7 @@
 @(Html.DevExtreme().CardView<SampleOrder>()
     .ID("cardView")
     .ElementAttr(new { @class = "dx-card" })
-    .DataSource(new JS("sharedDataSource"))
+    .DataSource(new JS("store"))
     .RemoteOperations(true)
     .AllowColumnReordering(true)
     .Pager(pager => pager
@@ -73,17 +73,15 @@
 )
 
 <script>
-    const sharedDataSource = new DevExpress.data.DataSource({
-        store: DevExpress.data.AspNet.createStore({
-            key: 'OrderID',
-            loadUrl: '@Url.Action("Get", "SampleData")',
-            insertUrl: '@Url.Action("Post", "SampleData")',
-            updateUrl: '@Url.Action("Put", "SampleData")',
-            deleteUrl: '@Url.Action("Delete", "SampleData")',
-            onBeforeSend(method, ajaxOptions) {
-                ajaxOptions.xhrFields = { withCredentials: true };
-            },
-        }),
+    const store = DevExpress.data.AspNet.createStore({
+        key: 'OrderID',
+        loadUrl: '@Url.Action("Get", "SampleData")',
+        insertUrl: '@Url.Action("Post", "SampleData")',
+        updateUrl: '@Url.Action("Put", "SampleData")',
+        deleteUrl: '@Url.Action("Delete", "SampleData")',
+        onBeforeSend(method, ajaxOptions) {
+            ajaxOptions.xhrFields = { withCredentials: true };
+        },
     });
 
     let isScreenSmall = $(window).width() < 960;

@@ -12,7 +12,7 @@ This example demonstrates how to switch between DataGrid and CardView based on t
 
 ## Implementation Details
 - Toggle the [DataGrid.visible](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/#visible) or [CardView.visible](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxCardView/Configuration/#visible) property to switch between the grid and the cardview.
-- To synchronize data, assign the same [DataSource](https://js.devexpress.com/Documentation/ApiReference/Data_Layer/DataSource/) instance to both components.
+- To share data, use the same [store](https://js.devexpress.com/Documentation/Guide/Data_Binding/Data_Layer/#Creating_DataSource/What_Are_Stores) across both components.
 - To synchronize states, such as selection, filter, paging, etc., use the following APIs:
     - In `jQuery` and `ASP.NET`, use [onOptionChanged](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/#onOptionChanged) to track changes in the required properties. Then, use the [option](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Methods/#optionoptionName_optionValue) method to apply the same changes to the other component.
     - In `Angular` and `Vue`, use [Two-Way Property Binding](https://js.devexpress.com/Documentation/Guide/Angular_Components/Component_Configuration_Syntax/#Two-Way_Property_Binding).

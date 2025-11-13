@@ -1,20 +1,18 @@
 $(() => {
   const url = 'https://js.devexpress.com/Demos/NetCore/api/DataGridWebApi';
-  const dataSource = new DevExpress.data.DataSource({
-    store: DevExpress.data.AspNet.createStore({
-      key: 'OrderID',
-      loadUrl: `${url}/Orders`,
-      insertUrl: `${url}/InsertOrder`,
-      updateUrl: `${url}/UpdateOrder`,
-      deleteUrl: `${url}/DeleteOrder`,
-      onBeforeSend(method, ajaxOptions) {
-        ajaxOptions.xhrFields = { withCredentials: true };
-      },
-    }),
+  const store = DevExpress.data.AspNet.createStore({
+    key: 'OrderID',
+    loadUrl: `${url}/Orders`,
+    insertUrl: `${url}/InsertOrder`,
+    updateUrl: `${url}/UpdateOrder`,
+    deleteUrl: `${url}/DeleteOrder`,
+    onBeforeSend(method, ajaxOptions) {
+      ajaxOptions.xhrFields = { withCredentials: true };
+    },
   });
 
   const commonConfig = {
-    dataSource,
+    dataSource: store,
     remoteOperations: true,
     allowColumnReordering: true,
     pager: {
