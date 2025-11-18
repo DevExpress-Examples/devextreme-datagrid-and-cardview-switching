@@ -40,6 +40,12 @@ const columns = ref([
   { dataField: 'Freight', sortOrder: undefined, visible: true, visibleIndex: 4 },
 ]);
 
+const onOptionChanged = (e: any) => {
+  if (e.fullName === 'visible' && e.value === false) {
+    e.component.hideColumnChooser();
+  }
+};
+
 </script>
 <template>
   <div class="demo-container">
@@ -51,6 +57,7 @@ const columns = ref([
       :allow-column-reordering="true"
       v-model:filter-value="filterValue"
       v-model:selected-row-keys="selectedKeys"
+      @option-changed="onOptionChanged"
       :height="800"
       :show-borders="true"
       :column-auto-width="true"
@@ -103,6 +110,7 @@ const columns = ref([
       :allow-column-reordering="true"
       v-model:filter-value="filterValue"
       v-model:selected-card-keys="selectedKeys"
+      @option-changed="onOptionChanged"
       :height="800"
       cards-per-row="auto"
     >

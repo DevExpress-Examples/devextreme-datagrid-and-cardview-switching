@@ -6,10 +6,8 @@ class SyncHelper {
             if (isManual) return;
             isManual = true;
 
-            if (e.fullName === 'visible') {
-                if (e.value === false) {
-                    e.component.hideColumnChooser();
-                }
+            if (e.fullName === 'visible' && e.value === false) {
+                e.component.hideColumnChooser();
             }
 
             // Selection functionality
@@ -58,10 +56,8 @@ class SyncHelper {
             if (isManual) return;
             isManual = true;
 
-            if (e.fullName === 'visible') {
-                if (e.value === false) {
-                    e.component.hideColumnChooser();
-                }
+            if (e.fullName === 'visible' && e.value === false) {
+                e.component.hideColumnChooser();
             }
 
             // Selection functionality

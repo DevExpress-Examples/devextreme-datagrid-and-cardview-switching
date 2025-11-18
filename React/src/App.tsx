@@ -76,6 +76,10 @@ function App(): JSX.Element {
         setColumnVisibileStates((prev) => ({ ...prev, [dataField]: value }));
       }
     }
+
+    if (fullName === 'visible' && value === false) {
+      component.hideColumnChooser();
+    }
   }, []);
 
   const CommonSettings = useCallback(({ isGrid }: { isGrid: boolean }) => {
