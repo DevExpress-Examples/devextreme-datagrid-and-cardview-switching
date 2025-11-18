@@ -46,6 +46,10 @@ const onOptionChanged = (e: any) => {
   }
 };
 
+const onSaved = (e: any) => {
+  store.push(e.changes);
+};
+
 </script>
 <template>
   <div class="demo-container">
@@ -58,6 +62,7 @@ const onOptionChanged = (e: any) => {
       v-model:filter-value="filterValue"
       v-model:selected-row-keys="selectedKeys"
       @option-changed="onOptionChanged"
+      @saved="onSaved"
       :height="800"
       :show-borders="true"
       :column-auto-width="true"
@@ -111,6 +116,7 @@ const onOptionChanged = (e: any) => {
       v-model:filter-value="filterValue"
       v-model:selected-card-keys="selectedKeys"
       @option-changed="onOptionChanged"
+      @saved="onSaved"
       :height="800"
       cards-per-row="auto"
     >

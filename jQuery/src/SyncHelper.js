@@ -52,6 +52,11 @@ class SyncHelper {
       isManual = false;
     });
 
+    dataGrid.on('saved', ({ changes }) => {
+      const cardViewStore = cardView.getDataSource().store();
+      cardViewStore.push(changes);
+    });
+
     cardView.on('optionChanged', (e) => {
       if (isManual) return;
       isManual = true;
@@ -100,6 +105,11 @@ class SyncHelper {
       }
 
       isManual = false;
+    });
+
+    cardView.on('saved', ({ changes }) => {
+      const dataGridStore = dataGrid.getDataSource().store();
+      dataGridStore.push(changes);
     });
   }
 }

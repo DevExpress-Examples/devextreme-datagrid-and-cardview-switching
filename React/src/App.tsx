@@ -82,6 +82,10 @@ function App(): JSX.Element {
     }
   }, []);
 
+  const onSaved = useCallback((e: any) => {
+    store.push(e.changes);
+  }, []);
+
   const CommonSettings = useCallback(({ isGrid }: { isGrid: boolean }) => {
     const Paging = isGrid ? GridPaging : CardPaging;
     const Pager = isGrid ? GridPager : CardPager;
@@ -155,6 +159,7 @@ function App(): JSX.Element {
         allowColumnReordering={true}
         height={800}
         onOptionChanged={onOptionChanged}
+        onSaved={onSaved}
         filterValue={filterValue}
         onFilterValueChange={setFilterValue}
         selectedRowKeys={selectedKeys}
@@ -173,6 +178,7 @@ function App(): JSX.Element {
         allowColumnReordering={true}
         height={800}
         onOptionChanged={onOptionChanged}
+        onSaved={onSaved}
         filterValue={filterValue}
         onFilterValueChange={setFilterValue}
         selectedCardKeys={selectedKeys}

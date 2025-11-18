@@ -80,4 +80,8 @@ export class AppComponent {
       e.component.hideColumnChooser();
     }
   }
+
+  onSaved(e: any): void {
+    this.store.push(e.changes);
+  }
 }
