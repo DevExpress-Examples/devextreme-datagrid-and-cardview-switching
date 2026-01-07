@@ -3,7 +3,7 @@
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 [![](https://img.shields.io/badge/💬_Leave_Feedback-feecdd?style=flat-square)](#does-this-example-address-your-development-requirementsobjectives)
 <!-- default badges end -->
-# DataGrid and CardView for DevExtreme - Switch Between Grid and Card Views
+# DevExtreme - Implement Adaptivity Using DataGrid and CardView
 
 This example switches between DataGrid and CardView based on screen width.
 
@@ -12,7 +12,7 @@ This example switches between DataGrid and CardView based on screen width.
 ## Implementation Details
 - To control which component is displayed, toggle the [DataGrid.visible](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/#visible) and [CardView.visible](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxCardView/Configuration/#visible) properties.
 - To share data between the components, implement the same [data store](https://js.devexpress.com/Documentation/Guide/Data_Binding/Data_Layer/#Creating_DataSource/What_Are_Stores) in both components. To update data, call the store's [push](https://js.devexpress.com/Documentation/Guide/Data_Binding/Data_Layer/#Data_Modification/Integration_with_Push_Services) method in [DataGrid.onSaved](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/#onSaved) and [CardView.onSaved](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxCardView/Configuration/#onSaved).
-- To synchronize component states (such as selection, applied filters, and pagination settings), use the following APIs:
+- To synchronize component states/settings (such as selection, applied filters, and pagination settings):
     - In `jQuery` and `ASP.NET Core`, configure [onOptionChanged](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/#onOptionChanged) to track changes in the required properties. Call the [option](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Methods/#optionoptionName_optionValue) method to apply changes to the other component.
     - In `Angular` and `Vue`, implement [Two-Way Property Binding](https://js.devexpress.com/Documentation/Guide/Angular_Components/Component_Configuration_Syntax/#Two-Way_Property_Binding).
     - In `React`, use [Controlled Mode](https://js.devexpress.com/React/Documentation/Guide/React_Components/State_Management/#Controlled_Mode).
