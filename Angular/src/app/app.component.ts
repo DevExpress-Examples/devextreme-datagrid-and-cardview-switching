@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import * as AspNetData from 'devextreme-aspnet-data-nojquery';
 import { ScreenService } from './screen.service';
+import { DxDataGridModule } from 'devextreme-angular/ui/data-grid';
+import { DxCardViewModule } from 'devextreme-angular';
 
 @Component({
+  imports: [DxDataGridModule, DxCardViewModule],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
