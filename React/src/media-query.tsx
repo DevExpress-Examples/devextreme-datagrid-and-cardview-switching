@@ -2,23 +2,6 @@ import { useState, useCallback, useEffect } from 'react';
 
 type HandlerFunction = () => void;
 
-export function useScreenSize(): { isScreenSmall: boolean } {
-  const [screenSize, setScreenSize] = useState(getScreenSize());
-  const onSizeChanged = useCallback(() => {
-    setScreenSize(getScreenSize());
-  }, []);
-
-  useEffect(() => {
-    subscribe(onSizeChanged);
-
-    return (): void => {
-      unsubscribe(onSizeChanged);
-    };
-  }, [onSizeChanged]);
-
-  return screenSize;
-}
-
 let handlers: HandlerFunction[] = [];
 const xSmallMedia = window.matchMedia('(max-width: 599.98px)');
 const smallMedia = window.matchMedia('(min-width: 600px) and (max-width: 959.98px)');
@@ -45,4 +28,21 @@ function getScreenSize(): { isScreenSmall: boolean } {
   return {
     isScreenSmall: smallMedia.matches || xSmallMedia.matches,
   };
+}
+
+export function useScreenSize(): { isScreenSmall: boolean } {
+  const [screenSize, setScreenSize] = useState(getScreenSize());
+  const onSizeChanged = useCallback(() => {
+    setScreenSize(getScreenSize());
+  }, []);
+
+  useEffect(() => {
+    subscribe(onSizeChanged);
+
+    return (): void => {
+      unsubscribe(onSizeChanged);
+    };
+  }, [onSizeChanged]);
+
+  return screenSize;
 }
