@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import * as AspNetData from 'devextreme-aspnet-data-nojquery';
 import { ScreenService } from './screen.service';
 import { DxDataGridModule } from 'devextreme-angular/ui/data-grid';
@@ -8,6 +8,7 @@ import { DxCardViewModule } from 'devextreme-angular';
   imports: [DxDataGridModule, DxCardViewModule],
   selector: 'app-root',
   templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
